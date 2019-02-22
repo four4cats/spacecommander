@@ -73,7 +73,8 @@ ExperimentalAutoDetectBinPacking: false
 # true: 将 switch 的 case 标签从 switch 表达式缩进一级；否则和 switch 表达式对齐
 IndentCaseLabels: true
 
-IndentWrappedFunctionNames: false
+#缩进
+IndentWrappedFunctionNames: true
 
 IndentFunctionDeclarationAfterType: false
 
