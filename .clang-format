@@ -5,10 +5,10 @@ IndentNestedBlocks: false
 AllowNewlineBeforeBlockParameter: false
 
 # CPP: C, C++, Objective-C, ObjectiveC++
-Language:        Cpp
+Language: Cpp
 
 # 在llvm的配置基础上加定制配置
-BasedOnStyle:  llvm
+BasedOnStyle: llvm
 
 # 访问修饰符如 @public、@private、@protected 的缩进
 AccessModifierOffset: -1
@@ -112,29 +112,41 @@ PointerAlignment: Right
 SpacesBeforeTrailingComments: 2
 
 Cpp11BracedListStyle: true
-Standard:        Auto
+Standard: Auto
 
 # 缩进字符长度
-IndentWidth:     4
+IndentWidth: 4
 
-TabWidth:        8
-UseTab:          Never
+TabWidth: 8
+UseTab: Never
 
 # 配置花括号的换行标准: Attach: 任何时候都不换行Allman: 任何时候始终换行Stroustrup: 只在function和else处换行Linux:只在function、namespace、class的时候换行GNU: 始终换行，并在控制块添加一个额外的缩进，但在class、function、definitions的时候不换行
 BreakBeforeBraces: Custom
 
-BraceWrapping: 
-    AfterClass: true
-    AfterControlStatement: false
-    AfterEnum: false
-    AfterFunction: true
-    AfterNamespace: true
-    AfterObjCDeclaration: true
-    AfterStruct: false
-    AfterUnion: false
-    BeforeCatch: false
-    BeforeElse: false
-    IndentBraces: false
+# 大括号换行，只有当BreakBeforeBraces设置为Custom时才有效
+BraceWrapping:
+  # class定义后面   
+  AfterClass: true
+  # 控制语句后面
+  AfterControlStatement: false
+  # enum定义后面
+  AfterEnum: false
+  # 函数定义后面（OC 无效） 
+  AfterFunction: true
+  # 命名空间定义后面
+  AfterNamespace: true
+  # OC 定义后面
+  AfterObjCDeclaration: true
+  # struct定义后面
+  AfterStruct: false
+  # union定义后面
+  AfterUnion: false
+  # catch之前
+  BeforeCatch: false
+  # else之前
+  BeforeElse: false
+  # 缩进大括号
+  IndentBraces: false
 
 # true: 自动给 mehtod-body 内的括号和内容之间添加空格，false: 不添加
 SpacesInParentheses: false
@@ -142,7 +154,7 @@ SpacesInParentheses: false
 SpacesInSquareBrackets: false
 
 # true: 在尖括号和内容之间各留一个空格，否则不添加
-SpacesInAngles:  false
+SpacesInAngles: false
 
 # true: 在空括号内添加空格，false: 不添加
 SpaceInEmptyParentheses: false
@@ -161,13 +173,13 @@ SpaceBeforeAssignmentOperators: true
 # 连续行的缩进长度（通常缩进＋设置值）， 一般用于首参数小于后续参数的 method 名字、多行的 String－literals
 ContinuationIndentWidth: 4
 
-CommentPragmas:  '^ IWYU pragma:'
-ForEachMacros:   [ foreach, Q_FOREACH, BOOST_FOREACH ]
+CommentPragmas: '^ IWYU pragma:'
+ForEachMacros: [ foreach, Q_FOREACH, BOOST_FOREACH ]
 
 # 是否在括号之前添加一个空格，Never: 任何情况都不添加，ControlStatements: 只在控制结构（for、if、while）的地方添加空格，AlWays: 除开在 function－like 的的宏定义之外在任何地方都需要添加空格
 SpaceBeforeParens: ControlStatements
 
 # 当前配置生效开关，true: 打开，false: 关闭
-DisableFormat:   false
+DisableFormat: false
 ...
 
