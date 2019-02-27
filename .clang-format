@@ -1,14 +1,16 @@
 ---
 # Custom options in the special build of clang-format (these are not standard options)
 # https://clang.llvm.org/docs/ClangFormatStyleOptions.html
-IndentNestedBlocks: false
-AllowNewlineBeforeBlockParameter: false
+
 
 # CPP: C, C++, Objective-C, ObjectiveC++
 Language: Cpp
 
 # 在llvm的配置基础上加定制配置
 BasedOnStyle: llvm
+
+IndentNestedBlocks: false
+AllowNewlineBeforeBlockParameter: false
 
 # 访问修饰符如 @public、@private、@protected 的缩进
 AccessModifierOffset: -1
@@ -30,7 +32,7 @@ AlignTrailingComments: false
 AllowAllParametersOfDeclarationOnNextLine: true
 
 # 设置代码的最大长度（回自动对代码长度进行换行显示，并对注释自动换行；当长度加大的时候，AllowAllParametersOfDeclarationOnNextLine＝true失效）
-ColumnLimit: 160
+ColumnLimit: 0
 
 # false: 设置不允许一行的Block在一行显示
 AllowShortBlocksOnASingleLine: false
