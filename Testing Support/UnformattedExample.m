@@ -101,7 +101,7 @@ struct Update {
                         SQTypedKeyPath(MQItemControl, selected)
                                              ]];
 	NSArray* testLiteral = @[cool];
-	NSDictionary* dictLiteral = @{ @"foo": testLiteral };
+	NSDictionary* dictLiteral = @{ @"foo": testLiteral, @"foo": testLiteral, };
 	SQCheckCondition(NO,, @"Will the commas stay together?");
 }
 

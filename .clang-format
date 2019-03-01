@@ -5,8 +5,8 @@ IndentNestedBlocks: false
 AllowNewlineBeforeBlockParameter: false
 
 
-# http://releases.llvm.org/3.8.0/tools/clang/docs/ClangFormatStyleOptions.html
 # https://clang.llvm.org/docs/ClangFormatStyleOptions.html
+# http://releases.llvm.org/3.8.0/tools/clang/docs/ClangFormatStyleOptions.html
 # CPP: C, C++, Objective-C, ObjectiveC++
 Language: Cpp
 
@@ -39,7 +39,7 @@ AlignTrailingComments: false
 AllowAllParametersOfDeclarationOnNextLine: true
 
 # 设置代码的最大长度（回自动对代码长度进行换行显示，并对注释自动换行；当长度加大的时候，AllowAllParametersOfDeclarationOnNextLine＝true失效）
-ColumnLimit: 0
+ColumnLimit: 160
 
 # true: 允许一行的Block在一行显示，false: 不允许
 AllowShortBlocksOnASingleLine: false
@@ -94,7 +94,7 @@ BraceWrapping:
   # 缩进大括号
   IndentBraces: false
 
-BreakBeforeBinaryOperators: None
+BreakBeforeBinaryOperators: All
 
 # 花括号的换行标准
 BreakBeforeBraces: Custom
@@ -177,6 +177,7 @@ PointerAlignment: Right
 
 ReflowComments:  true
 
+# 自动排序 include 文件
 SortIncludes: false
 
 # 类型强转括号号码加空格
@@ -185,10 +186,10 @@ SpaceAfterCStyleCast: false
 # true: 在赋值运算符前后添加一个空格
 SpaceBeforeAssignmentOperators: true
 
-# 是否在括号之前添加一个空格
+# 在括号之前添加一个空格
 SpaceBeforeParens: ControlStatements
 
-# true: 在空括号内添加空格，false: 不添加
+# true: 在空括号内添加空格
 SpaceInEmptyParentheses: false
 
 # 在紧跟注释之前所留空格数
@@ -209,7 +210,7 @@ SpacesInParentheses: false
 # true: 中括号之间加空格
 SpacesInSquareBrackets: false
 
-Standard: Auto
+Standard: Cpp11
 
 TabWidth: 4
 UseTab: Never

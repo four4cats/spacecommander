@@ -22,8 +22,16 @@ class AbstractCustomFormatter(object):
             formatted_lines = self.format_lines(sys.stdin.readlines())
             sys.stdout.write(formatted_lines)
 
+    def test_file(self, path):
+        f = open(path, "r+b")
+        formatted_lines = self.format_lines(f.readlines())
+        f.close()
+
+        sys.stdout.write(formatted_lines)
+
     def format_lines(self, lines):
         return "".join(lines)
+
 
 if __name__ == "__main__":
     AbstractCustomFormatter().run()
