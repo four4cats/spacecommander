@@ -229,4 +229,43 @@ INSAFSuccessBlock INSAPIClientModelSuccessHandler(Class mantleClass, NSString *_
 }
 // clang-format on
 
+- (void)test {
+
+    if (!self.activityCenterModel  
+    || self.activityCenterModel.iNextSkip == 0 
+             || self.activityCenterModel.ptActivityList.count == 0) {
+        self.activityCenterModel = model;
+    } else {
+        self.activityCenterModel.iNextSkip = model.iNextSkip;
+        [self.activityCenterModel.ptActivityList addObjectsFromArray:model.ptActivityList];
+    }
+
+__weak typeof(self) weakSelf = self;
+    [[BussDataTransfer sharedBussDataTransfer] sendRequestData:@(REQ_ACTIVITYCENTER_GET)
+                                                         Param:paraDic
+                                                 ResponseBlock:^(NotificationParam *notParam)
+     {
+         if (notParam && [notParam errCode] == MM_OK) {
+             NSDLog(@"获取活动数据成功");
+             IGGActivityCenterModel *model = [notParam.extParam objectForKey:@"ActivityCenterData"];
+             
+             if (iSkip == 0) {  //首页数据
+                 weakSelf.activityCenterModel = model;
+                 if (iGetType == ActivityCenter_Check) {
+                     [weakSelf onHandleActivityGoingCout];
+                 }
+                 
+                 if (model.ptActivityList.count > 0) {
+                     [DMActivity deleteAllActivityItemCompletion:^{
+                         [DMActivity updateActivityItems:model.ptActivityList completion:^{
+                             NSDLog(@"更新活动数据成功");
+                         }];
+                     }];
+                 }
+             } 
+         }
+         
+     }];
+}
+
 @end

@@ -39,7 +39,7 @@ AlignTrailingComments: false
 AllowAllParametersOfDeclarationOnNextLine: true
 
 # 设置代码的最大长度（回自动对代码长度进行换行显示，并对注释自动换行；当长度加大的时候，AllowAllParametersOfDeclarationOnNextLine＝true失效）
-ColumnLimit: 160
+ColumnLimit: 0
 
 # true: 允许一行的Block在一行显示，false: 不允许
 AllowShortBlocksOnASingleLine: false
