@@ -22,7 +22,7 @@ python "$DIR"/custom/LiteralSymbolSpacer.py "$1"
 # The formatter gets confused by C++ inline constructors that are broken onto multiple lines
 python "$DIR"/custom/InlineConstructorOnSingleLine.py "$1"
 # Add a semicolon at the end of simple macros
-python "$DIR"/custom/MacroSemicolonAppender.py "$1"
+# python "$DIR"/custom/MacroSemicolonAppender.py "$1"
 # Add an extra newline before @implementation and @interface
 python "$DIR"/custom/DoubleNewlineInserter.py "$1"
 
