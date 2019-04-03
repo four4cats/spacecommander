@@ -21,8 +21,6 @@ line="$(head -1 "$1" | xargs)"
 python "$DIR"/custom/LiteralSymbolSpacer.py "$1"
 # The formatter gets confused by C++ inline constructors that are broken onto multiple lines
 python "$DIR"/custom/InlineConstructorOnSingleLine.py "$1"
-# Add a semicolon at the end of simple macros
-# python "$DIR"/custom/MacroSemicolonAppender.py "$1"
 # Add an extra newline before @implementation and @interface
 python "$DIR"/custom/DoubleNewlineInserter.py "$1"
 
@@ -36,3 +34,5 @@ python "$DIR"/custom/ParameterAfterBlockNewline.py "$1"
 python "$DIR"/custom/HasIncludeSpaceRemover.py "$1"
 # Add a newline at the end of the file
 python "$DIR"/custom/NewLineAtEndOfFileInserter.py "$1"
+# format dict
+python "$DIR"/custom/DictFormatter.py "$1"

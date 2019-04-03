@@ -12,7 +12,7 @@ if [ "$difference" -gt 0 ]; then
     echo "Then, remove the temporary file Testing\ Support/FormattedInPlace.m"
     exit $difference
 fi
-rm Testing\ Support/FormattedInPlace.m
+# rm Testing\ Support/FormattedInPlace.m
 
 difference=$(./format-objc-file-dry-run.sh Testing\ Support/UnformattedExample.m | diff Testing\ Support/FormattedExample.m - | wc -l)
 if [ "$difference" -gt 0 ]; then
