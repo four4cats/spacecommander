@@ -17,6 +17,8 @@ fi
 line="$(head -1 "$1" | xargs)" 
 [ "$line" == "#pragma Formatter Exempt" -o "$line" == "// MARK: Formatter Exempt" ] && exit 0
 
+echo "format file: " $1
+
 # Fix an edge case with array / dictionary literals that confuses clang-format
 python "$DIR"/custom/LiteralSymbolSpacer.py "$1"
 # The formatter gets confused by C++ inline constructors that are broken onto multiple lines
@@ -34,5 +36,3 @@ python "$DIR"/custom/ParameterAfterBlockNewline.py "$1"
 python "$DIR"/custom/HasIncludeSpaceRemover.py "$1"
 # Add a newline at the end of the file
 python "$DIR"/custom/NewLineAtEndOfFileInserter.py "$1"
-# format dict
-python "$DIR"/custom/DictFormatter.py "$1"

@@ -269,6 +269,12 @@ __weak typeof(self) weakSelf = self;
 }
 
 - (void)testDict {
+    NSDictionary *dictReqPrm = @{@"reqparam": @{@"session": NSAssureNotNill(sSess), @"ac": @"snsPost"},
+                                                   @"content": NSAssureNotNill(self.tvContent.text),
+                                                   @"siteurl": NSAssureNotNill(sHyperlink),
+                                                   @"sitetitle": NSAssureNotNill(strLinkTitle),
+                                                   @"siteimg": NSAssureNotNill(strLinkImageUrl)};
+    
     NSDictionary *param = @{@"thumb": thumb,
                              @"tagids": @"",
                              @"airtime": @(0),
@@ -282,7 +288,22 @@ __weak typeof(self) weakSelf = self;
 
 
     NSError *error = [NSError errorWithDomain:NSCocoaErrorDomain code:0 userInfo:@{NSLocalizedDescriptionKey: @"stop",
-                    NSLocalizedFailureReasonErrorKey: LANG(@"common_net_connect_error") }];
+                    NSLocalizedFailureReasonErrorKey: LANG(@"common_net_connect_error"),                     }];
+
+
+    NSDictionary *dictSel = @{ITEM_SCM_SEL(eUrlSchemeNameofNormal, @selector(handleOpenWeGamerSchemeUrlWithApp:schemeUrl:sourceApplication:annotation:)),
+        ITEM_SCM_SEL(eUrlSchemeNameofLinkSms, @selector(handleOpenLinkSmsSchemeUrlWithApp:schemeUrl:sourceApplication:annotation:)),
+        ITEM_SCM_SEL(eUrlSchemeNameofGoogleSignIn, @selector(handleOpenGoogleSignInSchemeUrlWithApp:schemeUrl:sourceApplication:annotation:)),
+        ITEM_SCM_SEL(eUrlSchemeNameofFB, @selector(handleOpenFaceBookSchemeUrlWithApp:schemeUrl:sourceApplication:annotation:)),
+        ITEM_SCM_SEL(eUrlSchemeNameofWarChannel, @selector(handleOpenWarChannelSchemeUrlWithApp:schemeUrl:sourceApplication:annotation:)),
+        ITEM_SCM_SEL(eUrlSchemeNameofGroupProfile, @selector(handleOpenGroupProfileSchemeUrlWithApp:schemeUrl:sourceApplication:annotation:)),
+        ITEM_SCM_SEL(eUrlSchemeNameofLiveShare, @selector(handleOpenliveShareSchemeUrlWithApp:schemeUrl:sourceApplication:annotation:)),
+        ITEM_SCM_SEL(eUrlSchemeNameofActivity, @selector(handleOpenActivitySchemeUrlWithApp:schemeUrl:sourceApplication:annotation:)),
+        ITEM_SCM_SEL(eUrlSchemeNameofWebView, @selector(handleOpenWebViewSchemeUrlWithApp:schemeUrl:sourceApplication:annotation:)),
+        ITEM_SCM_SEL(eUrlSchemeNameofGiftId, @selector(handleOpenGiftIdSchemeUrlWithApp:schemeUrl:sourceApplication:annotation:)),
+        ITEM_SCM_SEL(eUrlSchemeNameofUniversal, @selector(handleOpenUniversalSchemeUrlWithApp:schemeUrl:sourceApplication:annotation:)),
+    };
+
 }
 
 @end
