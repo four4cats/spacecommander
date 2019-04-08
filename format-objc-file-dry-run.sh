@@ -14,15 +14,16 @@ if [ "$line" == "#pragma Formatter Exempt" -o "$line" == "// MARK: Formatter Exe
 fi
 
 cat "$1" | \
-python "$DIR"/custom/LiteralSymbolSpacer.py | \
-python "$DIR"/custom/InlineConstructorOnSingleLine.py | \
-python "$DIR"/custom/DoubleNewlineInserter.py | \
-python "$DIR"/custom/DictPreFormatter.py | \
+# python "$DIR"/custom/LiteralSymbolSpacer.py | \
+# python "$DIR"/custom/InlineConstructorOnSingleLine.py | \
+# python "$DIR"/custom/DoubleNewlineInserter.py | \
+# python "$DIR"/custom/DictPreFormatter.py | \
 
-clang-format -style=file | \
+"$DIR"/bin/clang-format-8.0.0 -style=file | \
+python "$DIR"/custom/RemoveCategoryBlank.py "$1" | \
 
-python "$DIR"/custom/GenericCategoryLinebreakIndentation.py | \
-python "$DIR"/custom/ParameterAfterBlockNewline.py | \
-python "$DIR"/custom/HasIncludeSpaceRemover.py | \
-python "$DIR"/custom/NewLineAtEndOfFileInserter.py | \
-python "$DIR"/custom/BlockFormatter.py
+# python "$DIR"/custom/GenericCategoryLinebreakIndentation.py | \
+# python "$DIR"/custom/ParameterAfterBlockNewline.py | \
+# python "$DIR"/custom/HasIncludeSpaceRemover.py | \
+# python "$DIR"/custom/NewLineAtEndOfFileInserter.py | \
+# python "$DIR"/custom/BlockFormatter.py

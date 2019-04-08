@@ -120,7 +120,8 @@ struct Update {
 [self performSegueWithIdentifier:@"ToHRList" sender:nil];
     }];
 
-    [self.delegate capturePaymentForTransactionAutomaticCaptureController:self completionHandler:^(NSError *error) {
+    [self.delegate capturePaymentForTransactionAutomaticCaptureController:self completionHandler:^(NSError *error)
+     {
     if (NO) {
             // do nothing
     } else {
