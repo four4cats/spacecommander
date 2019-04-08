@@ -11,15 +11,17 @@ from AbstractCustomFormatter import AbstractCustomFormatter
 class DictPreFormatter(AbstractCustomFormatter):
     def format_lines(self, lines):
         full = ''.join(lines)
+        # optimized nesting dict
         rst = re.sub(r': +@{\n+ +', ": @{", full)
         rst = re.sub(r',\n+ +},', "},", rst)
-        rst = re.sub(r'.*: [a-zA-Z0-9_@,}\s\.\(\)]*,\s+}[;\n]', self.format_dict_trail, rst)
+        rst = re.sub(r'.*: [a-zA-Z0-9_@,}\s\.\(\)\[\]]+,\s+}]?[;\n]', self.format_dict_trail, rst)
         # print(rst)
 
         return rst
 
     def format_dict_trail(self, m):
         text = m.group()
+        # Unformatted comment statements
         if text.find('//') >= 0:
           return text
         return re.sub(r',?\n +}', "}", text)
