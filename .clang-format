@@ -1,20 +1,9 @@
 ---
-# Custom options in the special build of clang-format (these are not standard options)
-
-IndentNestedBlocks: false
-AllowNewlineBeforeBlockParameter: false
-
-
 # https://clang.llvm.org/docs/ClangFormatStyleOptions.html
 # http://releases.llvm.org/3.8.0/tools/clang/docs/ClangFormatStyleOptions.html
 # CPP: C, C++, Objective-C, ObjectiveC++
-Language: Cpp
-
-# 当前配置生效开关，true: 打开，false: 关闭
-DisableFormat: false
-
-# 在 llvm 的配置基础上加定制配置
-# BasedOnStyle: LLVM
+# Language:        Cpp
+# BasedOnStyle:  LLVM
 
 # 访问修饰符如 @public、@private、@protected 的缩进
 AccessModifierOffset: -1
@@ -28,137 +17,168 @@ AlignConsecutiveAssignments: false
 # 连续变量名定义，变量名起始位置对齐
 AlignConsecutiveDeclarations: false
 
-AlignEscapedNewlinesLeft: true
+AlignEscapedNewlines: Left
 
-AlignOperands: false
+AlignOperands:   false
 
-# true: 表示对齐连续的紧跟注释（连续行使用双斜杠注释，包括在函数体内），多用于Model定义、property说明、私有成员变量说明
+# 对齐连续的紧跟注释
 AlignTrailingComments: false
 
-# true: 在超过规定列数之后，在方法声明中将所有参数换行显示（包括在方法声明和实现中，不包括C函数方法）
+# 在超过规定列数之后，在方法声明中将所有参数换行显示
 AllowAllParametersOfDeclarationOnNextLine: true
 
-# 设置代码的最大长度（回自动对代码长度进行换行显示，并对注释自动换行；当长度加大的时候，AllowAllParametersOfDeclarationOnNextLine＝true失效）
-ColumnLimit: 0
-
-# true: 允许一行的Block在一行显示，false: 不允许
+# 允许一行的Block在一行显示
 AllowShortBlocksOnASingleLine: false
 
-# true: 允许只有 Break 语句的 case 标签在一行显示，false: 不允许
+# 允许只有 Break 语句的 case 标签在一行显示
 AllowShortCaseLabelsOnASingleLine: false
 
-# true: 允许较短(一般只有一行，多为内联C函数)的Function在一行显示,如"int f() { return 1; }"
-AllowShortFunctionsOnASingleLine: false
+# 允许较短(一般只有一行，多为内联C函数)的Function在一行显示
+AllowShortFunctionsOnASingleLine: None
 
-# true: 允许较短的if判断在一行显示，否则换行显示（没有自动加花括号）
+# 允许较短的if判断在一行显示，否则换行显示
 AllowShortIfStatementsOnASingleLine: false
 
-# true 允许较短的循环（while、for）在一行显示，否则换行显示（没有自动加花括号）
+# 允许较短的循环（while、for）在一行显示
 AllowShortLoopsOnASingleLine: false
 
 AlwaysBreakAfterDefinitionReturnType: None
 
 AlwaysBreakAfterReturnType: None
 
-# true: 多行文本前插入空行
+# 多行文本前插入空行
 AlwaysBreakBeforeMultilineStrings: false
 
-AlwaysBreakTemplateDeclarations: false
+AlwaysBreakTemplateDeclarations: No
 
 BinPackArguments: true
 
 BinPackParameters: true
 
 # 大括号换行，只有当 BreakBeforeBraces 设置为 Custom 时才有效
-BraceWrapping:
+BraceWrapping:   
   # class 定义后面   
-  AfterClass: true
+  AfterClass:      true
   # 控制语句后面
   AfterControlStatement: false
   # enum 定义后面
-  AfterEnum: false
+  AfterEnum:       false
   # 函数定义后面
-  AfterFunction: true
+  AfterFunction:   true
   # 命名空间定义后面
-  AfterNamespace: true
+  AfterNamespace:  true
   # OC 定义后面
   AfterObjCDeclaration: true
   # struct定义后面
-  AfterStruct: false
+  AfterStruct:     false
   # union定义后面
-  AfterUnion: false
+  AfterUnion:      false
+  # Extern定义后面
+  AfterExternBlock: false
   # catch之前
-  BeforeCatch: false
+  BeforeCatch:     false
   # else之前
-  BeforeElse: false
+  BeforeElse:      false
   # 缩进大括号
-  IndentBraces: false
+  IndentBraces:    false
+  SplitEmptyFunction: true
+  SplitEmptyRecord: true
+  SplitEmptyNamespace: true
 
 BreakBeforeBinaryOperators: All
 
 # 花括号的换行标准
 BreakBeforeBraces: Custom
 
+BreakBeforeInheritanceComma: false
+
+BreakInheritanceList: AfterColon
+
 BreakBeforeTernaryOperators: false
 
 BreakConstructorInitializersBeforeComma: false
 
-CommentPragmas: '^ IWYU pragma:'
+BreakConstructorInitializers: AfterColon
+
+BreakAfterJavaFieldAnnotations: false
+
+BreakStringLiterals: false
+
+ColumnLimit:     0
+
+CommentPragmas:  '^ IWYU pragma:'
+
+CompactNamespaces: false
 
 ConstructorInitializerAllOnOneLineOrOnePerLine: true
 
 ConstructorInitializerIndentWidth: 4
 
-# 连续行的缩进长度（通常缩进＋设置值）， 一般用于首参数小于后续参数的 method 名字、多行的 String－literals
+# 连续行的缩进长度（通常缩进＋设置值）
 ContinuationIndentWidth: 4
 
 Cpp11BracedListStyle: true
 
 DerivePointerAlignment: false
 
+DisableFormat:   false
+
 ExperimentalAutoDetectBinPacking: false
 
-ForEachMacros: [ foreach, Q_FOREACH, BOOST_FOREACH ]
+FixNamespaceComments: true
+
+ForEachMacros:   
+  - foreach
+  - Q_FOREACH
+  - BOOST_FOREACH
+
+IncludeBlocks:   Preserve
 
 IncludeCategories: 
   - Regex:           '^"(llvm|llvm-c|clang|clang-c)/'
     Priority:        2
-  - Regex:           '^(<|"(gtest|isl|json)/)'
+  - Regex:           '^(<|"(gtest|gmock|isl|json)/)'
     Priority:        3
   - Regex:           '.*'
     Priority:        1
-    
-# true: 将 switch 的 case 标签从 switch 表达式缩进一级；否则和 switch 表达式对齐
+
+IncludeIsMainRegex: '(Test)?$'
+
+# 将 switch 的 case 标签从 switch 表达式缩进一级
 IndentCaseLabels: true
 
-# 缩进字符长度
-IndentWidth: 4
+IndentPPDirectives: None
+
+IndentWidth:     4
 
 # 缩进
 IndentWrappedFunctionNames: true
 
-# 未知用途，可能被 IndentWrappedFunctionNames 替换
-IndentFunctionDeclarationAfterType: false
+JavaScriptQuotes: Leave
+
+JavaScriptWrapImports: true
 
 KeepEmptyLinesAtTheStartOfBlocks: false
 
 MacroBlockBegin: ''
-
 MacroBlockEnd:   ''
 
-# 整个文件任意位置最大能够保持的连续空行数（如果超过MAX值，减少到Max行，小于不管）
 MaxEmptyLinesToKeep: 2
 
 NamespaceIndentation: All
 
+ObjCBinPackProtocolList: Auto
+
 # Block－Body 的缩进列数
 ObjCBlockIndentWidth: 4
 
-# true: 在 @property 之后添加一个空格，否则不添加空格
+# 在 @property 之后添加一个空格
 ObjCSpaceAfterProperty: true
 
-# true: 在类与协议名的左括号之间添加一空格，否则不添加空格;
+# 在类与协议名的左括号之间添加一空格
 ObjCSpaceBeforeProtocolList: true
+
+PenaltyBreakAssignment: 2
 
 PenaltyBreakBeforeFirstCallParameter: 10000
 
@@ -168,51 +188,68 @@ PenaltyBreakFirstLessLess: 120
 
 PenaltyBreakString: 1000
 
+PenaltyBreakTemplateDeclaration: 10
+
 PenaltyExcessCharacter: 1000000
 
-PenaltyReturnTypeOnItsOwnLine: 200
+PenaltyReturnTypeOnItsOwnLine: 60
 
-# 所有位置的指针星号（*）或取地址符号（&）对齐位置: Left、Middle、Right，当作为乘号时候居中 
 PointerAlignment: Right
 
 ReflowComments:  true
 
-# 自动排序 include 文件
-SortIncludes: false
+SortIncludes:    false
+
+SortUsingDeclarations: true
 
 # 类型强转括号号码加空格
 SpaceAfterCStyleCast: false
 
-# true: 在赋值运算符前后添加一个空格
+SpaceAfterTemplateKeyword: false
+
+# 在赋值运算符前后添加一个空格
 SpaceBeforeAssignmentOperators: true
+
+SpaceBeforeCpp11BracedList: false
+
+SpaceBeforeCtorInitializerColon: false
+
+SpaceBeforeInheritanceColon: false
 
 # 在括号之前添加一个空格
 SpaceBeforeParens: ControlStatements
 
-# true: 在空括号内添加空格
+SpaceBeforeRangeBasedForLoopColon: false
+
+# 在空括号内添加空格
 SpaceInEmptyParentheses: false
 
 # 在紧跟注释之前所留空格数
 SpacesBeforeTrailingComments: 2
 
-# true: 在尖括号和内容之间各留一个空格，否则不添加
-SpacesInAngles: false
+# 在尖括号和内容之间各留一个空格
+SpacesInAngles:  false
 
-# true: 在 Container literals（NSArray）之间添加空格
+# 在 Container literals（NSArray）之间添加空格
 SpacesInContainerLiterals: false
 
-# true: 在 C 风格的强制转换的时候添加空格
+# 在 C 风格的强制转换的时候添加空格
 SpacesInCStyleCastParentheses: false
 
-# true: 自动给 mehtod-body 内的括号和内容之间添加空格，false: 不添加
+# 自动给 mehtod-body 内的括号和内容之间添加空格
 SpacesInParentheses: false
 
-# true: 中括号之间加空格
+# 中括号之间加空格
 SpacesInSquareBrackets: false
 
-Standard: Cpp11
+Standard:        Cpp11
 
-TabWidth: 4
-UseTab: Never
+StatementMacros: 
+  - Q_UNUSED
+  - QT_REQUIRE_VERSION
+
+TabWidth:        8
+
+UseTab:          Never
 ...
 

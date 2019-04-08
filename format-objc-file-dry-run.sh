@@ -19,7 +19,7 @@ python "$DIR"/custom/InlineConstructorOnSingleLine.py | \
 python "$DIR"/custom/DoubleNewlineInserter.py | \
 python "$DIR"/custom/DictPreFormatter.py | \
 
-"$DIR"/bin/clang-format-3.8-custom -style=file | \
+clang-format -style=file | \
 
 python "$DIR"/custom/GenericCategoryLinebreakIndentation.py | \
 python "$DIR"/custom/ParameterAfterBlockNewline.py | \

@@ -28,7 +28,7 @@ python "$DIR"/custom/DoubleNewlineInserter.py "$1"
 python "$DIR"/custom/DictPreFormatter.py "$1"
 
 # Run clang-format
-"$DIR"/bin/clang-format-3.8-custom -i -style=file "$1" ;
+clang-format -i -style=file "$1" ;
 
 # Fix an issue with clang-format getting confused by categories with generic expressions.
 python "$DIR"/custom/GenericCategoryLinebreakIndentation.py "$1"
