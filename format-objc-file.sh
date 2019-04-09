@@ -25,7 +25,8 @@ echo "format file:" $1
 # python "$DIR"/custom/InlineConstructorOnSingleLine.py "$1"
 # # Add an extra newline before @implementation and @interface
 # python "$DIR"/custom/DoubleNewlineInserter.py "$1"
-# python "$DIR"/custom/DictPreFormatter.py "$1"
+
+python "$DIR"/custom/PrepareFormatter.py "$1"
 
 # Run clang-format
 "$DIR"/bin/clang-format-8.0.0 -i -style=file "$1" ;

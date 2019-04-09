@@ -4,6 +4,7 @@
 # If input is provided through stdin, it will send the result to stdout.
 # Copyright 2015 Square, Inc
 
+from DictFormatter import pre_format_dict
 import re
 
 from AbstractCustomFormatter import AbstractCustomFormatter
@@ -11,20 +12,11 @@ from AbstractCustomFormatter import AbstractCustomFormatter
 class DictPreFormatter(AbstractCustomFormatter):
     def format_lines(self, lines):
         full = ''.join(lines)
-        # optimized nesting dict
-        rst = re.sub(r': +@{\n+ +', ": @{", full)
-        rst = re.sub(r',\n+ +},', "},", rst)
-        rst = re.sub(r'.*: [a-zA-Z0-9_@,}\s\.\(\)\[\]]+,\s+}]?[;\n]', self.format_dict_trail, rst)
+        rst = pre_format_dict(full)
+        
         # print(rst)
 
         return rst
-
-    def format_dict_trail(self, m):
-        text = m.group()
-        # Unformatted comment statements
-        if text.find('//') >= 0:
-          return text
-        return re.sub(r',?\n +}', "}", text)
 
 
 if __name__ == "__main__":
