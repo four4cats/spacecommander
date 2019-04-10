@@ -27,7 +27,7 @@ AlignOperands:   false
 AlignTrailingComments: false
 
 # 在超过规定列数之后，在方法声明中将所有参数换行显示
-AllowAllParametersOfDeclarationOnNextLine: true
+AllowAllParametersOfDeclarationOnNextLine: false
 
 # 允许一行的Block在一行显示
 AllowShortBlocksOnASingleLine: false
@@ -36,7 +36,7 @@ AllowShortBlocksOnASingleLine: false
 AllowShortCaseLabelsOnASingleLine: false
 
 # 允许只有一行的Function在一行显示
-AllowShortFunctionsOnASingleLine: None
+AllowShortFunctionsOnASingleLine: Empty
 
 # 允许较短的if判断在一行显示
 AllowShortIfStatementsOnASingleLine: false
@@ -257,7 +257,7 @@ PointerAlignment: Right
 ReflowComments:  true
 
 # 自动排序include语句
-SortIncludes:    false
+SortIncludes:    true
 
 # 自动排序using语句
 SortUsingDeclarations: false
