@@ -257,7 +257,7 @@ PointerAlignment: Right
 ReflowComments:  true
 
 # 自动排序include语句
-SortIncludes:    true
+SortIncludes:    false
 
 # 自动排序using语句
 SortUsingDeclarations: false
