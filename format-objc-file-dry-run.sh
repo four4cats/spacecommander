@@ -18,9 +18,9 @@ cat "$1" | \
 # python "$DIR"/custom/InlineConstructorOnSingleLine.py | \
 # python "$DIR"/custom/DoubleNewlineInserter.py | \
 
-python "$DIR"/custom/PrepareFormatter.py "$1" | \
+python "$DIR"/custom/PrepareFormatter.py | \
 "$DIR"/bin/clang-format-8.0.0 -style=file | \
-python "$DIR"/custom/RemoveCategoryBlank.py "$1" | \
+python "$DIR"/custom/RemoveCategoryBlank.py 
 
 # python "$DIR"/custom/GenericCategoryLinebreakIndentation.py | \
 # python "$DIR"/custom/ParameterAfterBlockNewline.py | \
