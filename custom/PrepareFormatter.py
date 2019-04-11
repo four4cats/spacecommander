@@ -4,12 +4,12 @@
 # If input is provided through stdin, it will send the result to stdout.
 # Copyright 2015 Square, Inc
 
-from DictFormatter import pre_format_dict
+from Dictionary import pre_format_dict
 import re
 
 from AbstractCustomFormatter import AbstractCustomFormatter
 
-class DictPreFormatter(AbstractCustomFormatter):
+class PrepareFormatter(AbstractCustomFormatter):
     def format_lines(self, lines):
         full = ''.join(lines)
         rst = pre_format_dict(full)
@@ -20,4 +20,4 @@ class DictPreFormatter(AbstractCustomFormatter):
 
 
 if __name__ == "__main__":
-    DictPreFormatter().run()
+    PrepareFormatter().run()

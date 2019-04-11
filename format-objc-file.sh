@@ -19,26 +19,9 @@ line="$(head -1 "$1" | xargs)"
 
 echo "format file:" $1
 
-# # Fix an edge case with array / dictionary literals that confuses clang-format
-# python "$DIR"/custom/LiteralSymbolSpacer.py "$1"
-# # The formatter gets confused by C++ inline constructors that are broken onto multiple lines
-# python "$DIR"/custom/InlineConstructorOnSingleLine.py "$1"
-# # Add an extra newline before @implementation and @interface
-# python "$DIR"/custom/DoubleNewlineInserter.py "$1"
-
 python "$DIR"/custom/PrepareFormatter.py "$1"
 
 # Run clang-format
 "$DIR"/bin/clang-format-8.0.0 -i -style=file "$1" ;
 
-python "$DIR"/custom/RemoveCategoryBlank.py "$1"
-
-# # Fix an issue with clang-format getting confused by categories with generic expressions.
-# python "$DIR"/custom/GenericCategoryLinebreakIndentation.py "$1"
-# # Fix an issue with clang-format breaking up a lone parameter onto a newline after a block literal argument.
-# python "$DIR"/custom/ParameterAfterBlockNewline.py "$1"
-# # Fix an issue with clang-format inserting spaces in a preprocessor macro.
-# python "$DIR"/custom/HasIncludeSpaceRemover.py "$1"
-# # Add a newline at the end of the file
-# python "$DIR"/custom/NewLineAtEndOfFileInserter.py "$1"
-# python "$DIR"/custom/BlockFormatter.py "$1"
+python "$DIR"/custom/FormatAfterClangFormatter.py "$1"

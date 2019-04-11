@@ -1,6 +1,6 @@
 import re
 
-__all__ = ('pre_format_dict')
+__all__ = ['pre_format_dict']
 
 def format_dict_leading(m):
     text = m.group()
