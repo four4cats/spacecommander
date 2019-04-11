@@ -29,8 +29,8 @@ AlignTrailingComments: false
 # 在超过规定列数之后，在方法声明中将所有参数换行显示
 AllowAllParametersOfDeclarationOnNextLine: false
 
-# 允许一行的Block在一行显示
-AllowShortBlocksOnASingleLine: false
+# 折叠空block
+AllowShortBlocksOnASingleLine: true
 
 # 允许只有Break语句的case标签在一行显示
 AllowShortCaseLabelsOnASingleLine: false
