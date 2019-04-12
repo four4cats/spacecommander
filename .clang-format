@@ -115,7 +115,6 @@ BreakBeforeBinaryOperators: NonAssignment
 # 花括号的换行标准
 BreakBeforeBraces: Custom
 
-# 
 BreakBeforeInheritanceComma: false
 
 # 类继承样式
@@ -124,22 +123,16 @@ BreakInheritanceList: AfterColon
 # 长三元表达式换行方式
 BreakBeforeTernaryOperators: true
 
-# 
 BreakConstructorInitializersBeforeComma: false
 
-# 
 BreakConstructorInitializers: BeforeColon
 
-# 
 BreakAfterJavaFieldAnnotations: true
 
-# 
 BreakStringLiterals: true
 
-# 
 ColumnLimit:     0
 
-# 
 CommentPragmas:  '^ IWYU pragma:'
 
 # 嵌套名空间排版
@@ -157,19 +150,16 @@ ContinuationIndentWidth: 4
 # 大括号紧凑样式
 Cpp11BracedListStyle: true
 
-# 
 DerivePointerAlignment: false
 
 # 停用配置
 DisableFormat:   false
 
-# 
 ExperimentalAutoDetectBinPacking: false
 
 # 名空间尾部加名字注释
 FixNamespaceComments: true
 
-# 
 ForEachMacros:   
   - foreach
   - Q_FOREACH
@@ -186,7 +176,6 @@ IncludeCategories:
   - Regex:           '.*'
     Priority:        1
 
-# 
 IncludeIsMainRegex: '(Test)?$'
 
 # case语句缩进
@@ -201,19 +190,15 @@ IndentWidth:     4
 # 方法名换行是否缩进
 IndentWrappedFunctionNames: true
 
-# 
 JavaScriptQuotes: Leave
 
-# 
 JavaScriptWrapImports: true
 
 # 方法名后面加换行
 KeepEmptyLinesAtTheStartOfBlocks: false
 
-# 
 MacroBlockBegin: ''
 
-# 
 MacroBlockEnd:   ''
 
 # 最大连续空行数
