@@ -5,15 +5,15 @@
 # Copyright 2015 Square, Inc
 
 from Dictionary import pre_format_dict
-import re
 
 from AbstractCustomFormatter import AbstractCustomFormatter
+
 
 class PrepareFormatter(AbstractCustomFormatter):
     def format_lines(self, lines):
         full = ''.join(lines)
         rst = pre_format_dict(full)
-        
+
         # print(rst)
 
         return rst

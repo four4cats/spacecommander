@@ -6,9 +6,9 @@
 
 from Category import *
 from BreakLines import *
-import re
 
 from AbstractCustomFormatter import AbstractCustomFormatter
+
 
 class FormatAfterClangFormatter(AbstractCustomFormatter):
     def format_lines(self, lines):
