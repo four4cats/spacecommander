@@ -24,5 +24,5 @@ def pre_format_dict(full_text):
     rst = re.sub(r'@{\n+\s+.*', format_dict_leading, full_text)
 
     # remove trail ',' at end of @{}
-    rst = re.sub(r'.*: *[a-zA-Z0-9_@,}\s\.\(\)\[\]\"]+,\n*\s*}]?[;\n,]', format_dict_trail, rst)
+    rst = re.sub(r'.*: +[a-zA-Z0-9_@,}\s\.\(\)\[\]\"]+,\n*\s*}]?[;\n,]', format_dict_trail, rst)
     return rst
