@@ -14,7 +14,7 @@ function directories_to_check() {
 
 # If the repo contains a .formatting-directory-ignore file, files in the specified directories will be ignored (one directory per line).
 function directories_to_ignore() {
-	if [ -f ".formatting-directory-ignore" ]; then
+	if [ -s ".formatting-directory-ignore" ]; then
 		files=$(echo "$files" | grep -v -f .formatting-directory-ignore)
 	fi
 }
@@ -39,6 +39,29 @@ function objc_files_to_format() {
 function all_valid_objc_files_in_repo() {
 	directories_to_check
 	files=$(git ls-tree --name-only --full-tree -r HEAD -- $locations_to_diff | grep -e '\.m$' -e '\.mm$' -e '\.h$' -e '\.hh$')
+	directories_to_ignore
+	echo "$files" | grep -v 'Pods/' | grep -v 'Carthage/' >&1
+}
+
+function objc_files_to_format_svn() {
+	# directories_to_check
+	
+	# filter file status
+	files=$(svn status | grep -e '^A' -e '^M')
+	# filter file types
+	files=$(echo "$files" | grep -e '\.m$' -e '\.mm$' -e '\.h$' -e '\.hh$')
+	# rm status info
+	files=$(echo "$files" | sed "s/^A *//g" | sed "s/^M *//g")
+
+	directories_to_ignore
+	# echo "$files" >  '/tmp/aa.txt'
+	echo "$files" | grep -v 'Pods/' | grep -v 'Carthage/' >&1
+}
+
+function all_valid_objc_files_in_repo_svn() {
+	directories_to_check
+	files=$(find \. | grep -e '\.m$' -e '\.mm$' -e '\.h$' -e '\.hh$')
+	files=$(echo "$files" | sed "s/^\.\///g" )
 	directories_to_ignore
 	echo "$files" | grep -v 'Pods/' | grep -v 'Carthage/' >&1
 }

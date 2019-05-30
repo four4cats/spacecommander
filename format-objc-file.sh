@@ -17,7 +17,7 @@ fi
 line="$(head -1 "$1" | xargs)" 
 [ "$line" == "#pragma Formatter Exempt" -o "$line" == "// MARK: Formatter Exempt" ] && exit 0
 
-echo "format file:" $1
+# echo "format file: $1"
 
 python "$DIR"/custom/PrepareFormatter.py "$1"
 
