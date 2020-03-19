@@ -1,100 +1,110 @@
-# [ Space Commander]
+[SpaceCommander](https://github.com/CodingPub/spacecommander) 提供了一些工具，用于统一 OC 代码风格。[这里](https://github.com/square/spacecommander)是原作者的仓库地址，可以看到已经有两三年没有更新了。要接入到开发流程中，当然需要一些修修补补的操作。
 
-**[ Space Commander]** provides tools which enable a team of iOS developers to commit Objective-C code to a git repository using a unified style format, without requiring any manual fixup.
 
-![Corgi image](banner.jpg)
 
-You can use it to:
+**注意：**SpaceCommander 是基于 git hook，项目需要使用 git 管理源码，如果是 svn 项目，请参考 [git-svn](https://git-scm.com/docs/git-svn) 工具，在本地使用 git 管理源码。
 
-* Enforce formatting conventions before code is committed.
-* Format code with a single command (both individual files or the entire repo).
-* Fail a build (during a pull request) if unformatted code made it into the branch.
+# 环境配置
 
-At Square, **[ Space Commander]** has streamlined iOS development, especially when it comes to pull requests. Applying formatting standards no longer requires manual developer attention; that time is better spent elsewhere!
+首先迁出 [SpaceCommander](https://github.com/CodingPub/spacecommander)。
 
-You may wish to fork **[ Space Commander]** to apply your team's particular set of formatting rules (more details below), or clone to enjoy Square's flavor of Objective-C formatting.
+```
+git clone https://github.com/CodingPub/spacecommander
+```
 
-Installation Locally
--------------
+配置命令行别名，关键字 alias，以 iTerm 为例，修改文件 `~/.bash_profile`，在尾部插入：
 
-To add formatting pre-commit checks to your repo, from the target repo, run `path/to/spacecommander/setup-repo.sh`.
+```
+# spacecommander
+export PATH="${PATH}:$HOME/<spacecommander_path>"
+# 初始化配置
+alias ocformatsetup="setup-repo.sh"
+# 格式化stash文件
+alias ocformat="format-objc-files.sh"
+# 格式化指定文件
+alias ocformatfile="format-objc-file.sh"
+# 格式化所有文件
+alias ocformatall="format-objc-files-in-repo.sh"
+```
 
-Usage
--------------
+在控制台，进入项目根目录执行`ocformatsetup`，之后可以看到项目目录下的 .git/hooks/pre-commit 文件注入了脚本执行语句。
 
-After running `setup-repo.sh`, formatting checks will run automatically before every commit.
+在项目根目录执行 ocformatall 命令，愉快的玩耍吧。
 
-To format an individual file and modify it in place, run `format-objc-file.sh <file>`. To format it without modification, run `format-objc-file-dry-run.sh <file>`
+> `ocformatsetup`命令还在项目根目录生成了一个`.clang-format`文件，执行`ls -a`可以看到，它只是一个软连接文件，如果保持软连接，不要将它上传到 git 仓库，需要添加到 .gitignore，建议是不上传，所有项目使用同一份配置。当然，这可以根据实际情况进行调整。
 
-To format **all** of the Objective-C files in your repository in-place, run `format-objc-files-in-repo.sh`.
+# 常用命令
 
-Details
--------------
+- ocformatsetup: 初始化项目配置
+- ocformat：最常用的命令，格式化 git 暂存的文件，也就是即将提交的文件，因为格式化整个项目，需要几分钟时间，因此提交前只格式化当前修改文件是有必要的。
+- ocformat -s: 格式化暂存文件，之后暂存格式化后的文件，初期不建议使用，格式化后要观察一下格式化的结果，保证编译正常再提交。
+- ocformatfile：格式化指定文件，将文件路径作为参数传递即可。
+- ocformatall：格式化所有文件，项目第一次格式化时使用，大概需要执行2次，才能完成所有格式化操作。
 
-To install the pre-commit hook, each developer on the project runs the setup script. This installs a precommit hook which will verify that code is formatted before the commit succeeds. 
+# 升级 clang-format
 
-If there were formatting errors during the commit, a script to fixup code automatically can be run in order to commit without error.
+笔者仓库内置了 clang-format-8，原作者内置的 clang-format-3.8 版本年代已经不可考，当前最新版本是 9，通过 brew 安装的版本是 8，还算够用。可以在[这里](https://clang.llvm.org/docs/index.html)查看最新版本的 clang。如果要更新 clang-format 版本，只需要将最新的 clang-format 可执行文件放到`SpaceCommander/bin`目录下，再修改`format-objc-file-dry-run.sh`和`format-objc-file.sh`两个脚本文件引用的 clang-format 路径即可，如：
 
-At Square, this formatting repository is referenced as a submodule of a larger iOS project, so that the formatting rules and scripts are locked to a revision of the parent repository.
-This way, we can check the formatting as part of the build process, and fail the build if the formatting is not current (we can also check out older SHAs without any difficulty).
+```
+"$DIR"/bin/clang-format-8.0.0 -i -style=file "$1" ;
+```
 
-`clang-format` expects the custom rules file to exist in the same directory that the command is run from, and so a `.gitignore`-d symlink of the rules file is added to the target repository. It is a symlink so that the developer only needs to update the git SHA of the formatting repository to get the latest formatting rules from upstream.
+这里需要注意，不同版本的 clang-format 配置属性不能相互兼容，因此升级后，需要重新导出一份默认的 .clang-fomat 配置
 
-Configuration
--------------
+```
+clang-format -style=llvm -dump-config > .clang-format
+```
 
-To format files only within selected directories, specify the name each directory in a file named `.formatting-directory`, separated by newlines (and without whitespace escaped). Otherwise, all Objective-C files tracked in the repo will be checked.
+再根据项目需要，定制相关配置，最后替换掉
 
-To ignore files within directories, add the name of each directory on a new line to a file named `.formatting-directory-ignore`.
+```
+SpaceCommander/.clang-format
+```
 
-To modify the formatting output, edit the following:
+# .clang-format 样式定制
 
-* `.clang-format` for built in `clang-format` options.
-* `format-objc-file-dry-run.sh` and `format-objc-file.sh` for rules that are implemented in `custom/`.
-* `Testing Support/` files to validate your changes.
+读者可以根据实际需要，自行定制代码风格，[这是](https://github.com/CodingPub/spacecommander/blob/master/.clang-format)笔者参考团队编码规范，进行的配置调整，同时加上了一些简单的备注，具体的配置属性请参考官方 [clang-format-8 样式声明](http://releases.llvm.org/8.0.0/tools/clang/docs/ClangFormatStyleOptions.html)，
 
-Add `#pragma Formatter Exempt` or `// MARK: Formatter Exempt` as the first line of the file if the formatter should ignore it.
+# 自定义扩展
 
-Installation for Pull Request Validation
--------------
+再好的程序，也有不够用的时候，这样程序员才不会失业呀。
 
-*The following instructions are Square-specific. We use a build system called **mobuild**. The hook that we use, which can be integrated into other build systems, is `format-objc-mobuild`*
+SpaceCommander 通过编写 Python 脚本进行格式化操作扩展。原作者封装的脚本都继承自 AbstractCustomFormatter，每个调整操作都需要读写一次文件，笔者做了优化调整，将自定义操作整合到 FormatAfterClangFormatter.py 和 PrepareFormatter.py 两个脚本中，格式化 3000+ 个项目文件所用的时长，从 12min 降到了 4 min。
 
-If you want style checking as a mandatory step to get a mergeable PR, do the following:
+> Time is money.
 
-* Add this repository as a [cocoapod](https://guides.cocoapods.org/using/getting-started.html), or add it as a submodule in a `Scripts/` directory.
-* Ensure that your repository has setup `.sqiosbuild.json` and `.stashkins` files at the top level (more info on the Square wiki page titled *All About Mobuild*).
-* The build machines are setup to check for the above conditions, and if they're met, automatically run `format-objc-mobuild`.
-* Open a PR with a modified Objective-C file to verify these checks are running.
+因原作者使用的 clang-format 版本较低，更新后原有的自定义扩展也被笔者去除了，再补上项目组需要的即可。同理，如果读者再次升级了 clang-format 工具，也需要酌情增减自定义扩展中的脚本。
 
-Updating Style Options
--------------
+目前自定义扩展主要做了以下工作：
 
-Change formatting policies by modifying `.clang-format`. Available style options are listed on the [clang website](http://clang.llvm.org/docs/ClangFormatStyleOptions.html).
+- 优化 @{} 内部的换行，格式化后的代码更加紧凑
+- 优化类别定义时括号前多出的空格
+- 两个方法之间插入空行
 
-Please also update `UnformattedExample.m` (under `./Testing Support/`) with an example of code that your formatting changes should correct.
+# 忽略格式化
 
-Then, update `FormattedExample.m` (in the same place) with the expected result, and verify that your changes produce the desired result by running a simple test:
-`./test.sh`
+总有代码不服管教，能怎么办呢，只能放过。
 
-Custom Formatters
--------------
+## 忽略多个文件
 
-`clang-format` is fantastic and we love it, but it has some limitations. We've added our own ad-hoc formatting capabilities through scripts which live in `custom/`. If you add a custom file formatting script to `custom/`, invoke it in `format-objc-file.sh` and `format-objc-file-dry-run.sh` and add examples of input / output to files in `Testing Support/`.
+在项目根目录新建 .formatting-directory-ignore 文件，列出不参与格式化的目录名或文件名，可包含多个配置，配置不支持正则，可只列出文件名的一部分，进行模糊匹配，如：
 
-Undesired Result?
--------------
+```
+.framework
+Pods
+```
 
-The formatter can't do everything. It may occasionally produce an undesirable result, in which case you can either:
+注意：Pods 是被默认屏蔽的，这里只是作为 demo.
 
-* Refactor code to produce a line that is simpler and less confusing to the formatter.
-* Use `// clang-format off` and `// clang-format on` to selectively enable/disable `clang-format` for specific lines of a file.
-* Add `#pragma Formatter Exempt` or `// MARK: Formatter Exempt` as the first line of the file, and it will not be formatted at all.
-* [Wislawa Szymborska](http://en.wikipedia.org/wiki/Wis%C5%82awa_Szymborska) said "All imperfection is easier to tolerate if served up in small doses." **[ Space Commander]** will remove nearly all formatting imperfections, but you may need to tolerate an occasional deviation from the expected result.
+## 忽略单个文件
 
-Contributing
--------------
+在文件的第一行加上 `#pragma Formatter Exempt` or `// MARK: Formatter Exempt` 就可以阻止该文件被格式化。
 
-We’re glad you’re interested in **[ Space Commander]**, and we’d love to see where you take it. Please read our [contributing guidelines](Contributing.md) prior to submitting a Pull Request.
+## 忽略代码段
 
-Thanks, and happy formatting!
+在指定代码段的前后加上 `// clang-format off` 和 `// clang-format on` 可以阻止该段代码被格式化。**注意**这个功能对于自定义扩展的格式化操作无效。强制提交
+
+工具是程序员编写的，偶尔出点 bug 也是能理解的，在实际开发中，如果代码格式化出现异常，又需要马上提交代码，可以绕过提交钩子提交代码。
+
+![截图](http://codingpub.github.io/2019/04/22/OC%E5%9B%A2%E9%98%9F%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%83%E5%8C%96-2/WX20190412-175741.png)
+
